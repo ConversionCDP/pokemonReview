@@ -1,15 +1,16 @@
 import requests
+import json
 
-def likelyItem(pokemon, format_id="gen9ou"):
+#pulls data for a format from smogon
+def smogonData(format_id="gen9ou"):
     url = f"https://pkmn.github.io/smogon/data/stats/{format_id}.json"
     data = requests.get(url).json()
 
-    items = data['pokemon'][pokemon]['items']
-    print(items)
 
-    print(data['pokemon'][pokemon])
+    return data['pokemon']
 
-    return list(items.keys())[0]
+fullList = smogonData(format_id="gen9ou")
 
-item = likelyItem("Garchomp")
-print(item)
+with open("smogonData.json", "w") as f:
+    json.dump(fullList, f, indent=2)
+print("Done, saved successfully")
