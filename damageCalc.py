@@ -23,14 +23,16 @@ def calcPossibleByDamage(level, power, attack, damageDealt, modifiers=1.0):
 
 #First step to calc possible HP and DEF stats using percentage of damage dealt
 def calcPossibleByPercentage(level, attack, power, HP, DEF, modifiers=1.0):
-    base = ((((2*level/5)+2)*power*attack)/50)+2
-
     rolls = []
+    
+    levelFactor = (2*level // 5) + 2
+    baseDamage = (levelFactor * power * attack // DEF)
+    baseDamage = (baseDamage // 50)+2
     for i in range(85, 101):
-        rollMult = i /100.0
-        dmg = math.floor(base/DEF) * modifiers * rollMult
-        percent = (dmg/HP)*100
-        rolls.append(round(percent, 1))
+        damageAtRoll = (baseDamage * i) //100
+        finalDamage = int(damageAtRoll * modifiers)
+        percent = math.floor(finalDamage * 1000 / HP) / 10
+        rolls.append(percent)
     
     return min(rolls), max(rolls)
 
@@ -46,10 +48,11 @@ def finalHPCalc(percentageTaken, sets):
 #Calculate Stats
 def calculateStat(base, ev, iv=31, level=100, isHP=False, nature=1.0):
     if isHP:
-        return math.floor((2*base+iv+math.floor(ev/4))*level/100)+level+10
+        return ((2*base+iv+(ev//4))*level//100)+level+10
     else:
-        return math.floor((math.floor((2*base+iv+math.floor(ev/4))*level/100)+5)*nature)
-
+        stat = ((2*base+iv+(ev//4))*level//100)+5
+        return math.floor(stat*nature)
+    
 def loadPokedex():
     filePath = "pokedex.json"
     with open(filePath, "r") as f:
@@ -60,22 +63,70 @@ def loadSmogon():
     with open(filePath, "r") as f:
         return json.load(f)
     
+def loadMoves():
+    filePath = "moveDB.json"
+    with open(filePath, 'r') as f:
+        return json.load(f)
+    
 pokedex = loadPokedex()
 smogon = loadSmogon()
-target = "Iron-crown"
+moves = loadMoves()
+
+attack = 182
+possibleSet = []
+percentageTaken = 31
+target = "Suicune"
+usedMove = "Earthquake"
+if usedMove in moves:
+    move = moves[usedMove]
+    print(move)
 
 #hp, atk, def, spa, spd, spe
 if target in pokedex:
     stats = pokedex[target]
 
-target = "Iron Crown"
+target = "Suicune"
 if target in smogon:
     sets = smogon[target]['spreads']
-    sets = sets.keys()
+    sets = list(sets.keys())
     #sets is a list of "nature:0/0/0/0/0/0"
 
-actualDefense = calculateStat(base=stats['def'], ev=0, iv=31, level=78, isHP=False)
-print(f"Iron Crown's HP at lvl 78: {actualDefense}")
+setList = []
+for x in range(0, len(sets)):
+    set = str(sets[x])
+    colon = set.index(":")
+    nature = set[:colon]
+    EVs = set[colon+1:]
+    statList = EVs.split("/")
+    tempList = [nature, statList]
+    setList.append(tempList)
+    
+
+for set in setList:
+    hp = calculateStat(base=stats['hp'], ev = int(set[1][0]), iv=31, level=50, isHP=True, nature=1.0)
+    print(set[1])
+    if move['category'] == "Physical" and set[0] in ("Bold", "Impish", "Lax", "Relaxed"):
+        defensiveStat = calculateStat(base=stats['def'], ev=int(set[1][2]), iv=31, level=50, isHP=False, nature = 1.1)
+    elif move['category'] == "Physical" and set[0] in ("Lonely", "Mild", "Gentle", "Hasty"):
+        defensiveStat = calculateStat(base=stats['def'], ev=int(set[1][2]), iv=31, level=50, isHP=False, nature=0.9)
+    elif move['category'] == "Physical":
+        defensiveStat = calculateStat(base=stats['def'], ev=int(set[1][2]), iv=31, level=50, isHP=False, nature=1.0)
+    elif move['category'] == "Special" and set[0] in ("Calm", "Gentle", "Careful", "Sassy"):
+        defensiveStat = calculateStat(base=stats['spd'], ev=int(set[1][4]), iv=31, level=50, isHP=False, nature=1.1)
+    elif move['category'] == "Special" and set[0] in ("Naughty", "Lax", "Rash", "Naive"):
+        defensiveStat = calculateStat(base=stats['spd'], ev=int(set[1][4]), iv=31, level=50, isHP=False, nature=0.9)
+    elif move['category'] == "Special":
+        defensiveStat = calculateStat(base=stats['spd'], ev=int(set[1][4]), iv=31, level=50, isHP=False, nature=1.0)
+    
+    
+    low, high = calcPossibleByPercentage(50, 182, move['power'], hp, defensiveStat, modifiers=1.5)
+    if low <= percentageTaken <= high:
+        possibleSet.append(set)
+
+    print(possibleSet)
+
+#actualDefense = calculateStat(base=stats['def'], ev=0, iv=31, level=78, isHP=False)
+#print(f"Iron Crown's HP at lvl 78: {actualDefense}")
 
 
 
