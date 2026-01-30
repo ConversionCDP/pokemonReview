@@ -44,29 +44,79 @@ if "switch" in battleLog:
     print(firstP1Mon)
     print(firstP2Mon)
 
-#Start Turn Stuff
-
 oppDictionary = {}
 #have user dictionary to keep up with health basically is the only thing it needs
 userDictionary = {}
 
+for x in range(0, len(p1Team)):
+    tempP1Team = p1Team[x]
+    tempP2Team = p2Team[x]
+    oppDictionary[tempP1Team[0]] = {"health": 100,
+                                    "moves": set(),
+                                    "possibleSets": [],
+                                    "ability": [],
+                                    "item": ""}
+    userDictionary[tempP2Team[0]] = {"health": 100,
+                                     "moves": set(),
+                                     "possibleSets": [],
+                                     "ability": [],
+                                     "item": ""}
+
+#Start Turn Stuff
 if "turn|1" in battleLog:
     turnStartIndex = battleLog.index("|turn|1")
     battleTurns = battleLog[turnStartIndex+1:]
     turnList = battleTurns.split("|turn|")
 
 for turn in turnList:
-    print(turnList)
-    #Keep track of damage values of every pokemon at all times for opponent and user team. These values can easily be passed for math, heuristic, etc.
-    '''Battle Dictionary = {
-        pokemon1 = {
-            health: 100/100,
-            moves: [move1, move2, move3, move4],
-            possibleSets: [set1, set2, set3, ...],
-            ability: [ability],
-            item: [item],
-            }
-    }'''
+    splitTurns = turn.split("\n")
+    print(turn)
+    for sepTurn in splitTurns:
+        print(sepTurn)
+        if "move" in sepTurn:
+            poke1Index = sepTurn.index("p1a:")
+            poke2Index = sepTurn.index("p2a:")
+            if poke1Index < poke2Index:
+                poke1Endex = sepTurn.index("|", poke1Index)
+                poke1Name =  (sepTurn[poke1Index+4:poke1Endex]).strip()
+                poke1Move = (sepTurn[poke1Endex+1:(sepTurn.index("|", poke1Endex+1))])
+                tempMoves = oppDictionary[poke1Name]["moves"]
+                tempMoves.add(poke1Move)
+                oppDictionary[poke1Name]["moves"] = tempMoves
+                if "[miss]" in sepTurn:
+                    poke2Endex = sepTurn.index("|", poke2Index)
+                    poke2Name = (sepTurn[poke2Index+4:poke2Endex]).strip()
+                else:
+                    poke2Name = (sepTurn[poke2Index+4:]).strip()
+                    print(poke2Name)
+            else:
+                poke2Endex = sepTurn.index("|", poke2Index)
+                poke2Name = (sepTurn[poke2Index+4:poke2Endex]).strip()
+                poke2Move = (sepTurn[poke2Endex+1:(sepTurn.index("|", poke2Endex+1))])
+                #don't add move to dictionary because I should already know moves
+                if "[miss]" in sepTurn:
+                    poke1Endex = sepTurn.index("|", poke1Index)
+                    poke1Name = (sepTurn[poke1Index+4:poke1Endex]).strip()
+                else:
+                    poke1Name = (sepTurn[poke1Index+4:]).strip()
+                    print(poke1Name)
+        elif "-damage" in sepTurn:
+            if "p1a" in sepTurn:
+                healthIndex = sepTurn.index("p1a:")
+                healthStart = sepTurn.index("|", healthIndex)
+                healthEnd = sepTurn.index("/", healthStart)
+                newHealth = int(sepTurn[healthStart+1:healthEnd])
+                print(newHealth)
+                oppDictionary[poke1Name]["health"] = newHealth
+                print(oppDictionary[poke1Name])
+            elif "p2a" in sepTurn:
+                healthIndex = sepTurn.index("p2a:")
+                healthStart = sepTurn.index("|", healthIndex)
+                healthEnd = sepTurn.index("/", healthStart)
+                newHealth = int(sepTurn[healthStart+1:healthEnd])
+                print(newHealth)
+                userDictionary[poke2Name]["health"] = newHealth
+                print(userDictionary[poke2Name])
 
-print(oppDictionary)
-print(userDictionary)
+    
+    
