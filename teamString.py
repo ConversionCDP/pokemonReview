@@ -1,7 +1,7 @@
 string = '''Garganacl @ Leftovers  
 Ability: Purifying Salt  
 Tera Type: Rock  
-EVs: 252 HP / 252 SpD  
+EVs: 252 HP / 4 Def / 252 SpD  
 Bold Nature  
 - Salt Cure  
 - Protect  
