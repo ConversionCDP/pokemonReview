@@ -1,6 +1,7 @@
 import json
 from teamImport import teamCreation
 from teamString import string
+from damageCalc import loadPokedex, loadSmogon
 
 def damageSend(player, playerDictionary, pokeName, sepTurn):
     healthIndex = sepTurn.index(player)
@@ -72,10 +73,29 @@ def bigReplay(fileName="singlesBattle.json", ):
                                         "boosts": [0, 0, 0, 0, 0],
                                         "activeType": ""}
     #Importing userDictionary to be used from teamImport
-    #REFORMAT THIS TO MATCH CLOSER TO OPPDICTIONARY, IE INCLUDE FULL LIST BUT DON'T START WITH 1,2,3 ETC.
-    userDictionary = teamCreation(string)
-    for poke in userDictionary:
-        userDictionary[poke]["boosts"] = [0, 0, 0, 0, 0]
+    tempUserDictionary = teamCreation(string)
+    for poke in tempUserDictionary:
+        newName = tempUserDictionary[poke]["pokemon"]
+        userDictionary[newName] = {"health": 100,
+                                           "moves": tempUserDictionary[poke]["moves"],
+                                           "evs": tempUserDictionary[poke]["evs"],
+                                           "ability": tempUserDictionary[poke]["ability"],
+                                           "item": tempUserDictionary[poke]["item"],
+                                           "boosts": [0, 0, 0, 0, 0],
+                                           "tera": tempUserDictionary[poke]["tera"],
+                                           "nature": tempUserDictionary[poke]["nature"],
+                                           "activeType": []}
+
+    pokedex = loadPokedex()
+    
+    #Ogerpon-wellspring-mask, Ursaluna-bloodmoon, Feraligatr-mega
+    #Find a consistent way to fix this even if hard coded for these mons,maybe fix pokedex to match showdown
+
+    for pokeName in userDictionary:
+        newTypes = pokedex[pokeName]["types"]
+        print(newTypes)
+        userDictionary[pokeName]["activeType"] = newTypes
+    print(userDictionary)
 
     #Start Turn Stuff
     if "turn|1" in battleLog:

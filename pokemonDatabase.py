@@ -13,23 +13,26 @@ def get_complete_pokedex():
         data = requests.get(entry['url']).json()
         
         stats = {s['stat']['name']: s['base_stat'] for s in data['stats']}
+        types = [t['type']['name'] for t in data['types']]
         bst = sum(stats.values())
         
         # Standardize naming and structure
         full_stats[name.capitalize()] = {
             "hp": stats['hp'], "atk": stats['attack'], "def": stats['defense'],
             "spa": stats['special-attack'], "spd": stats['special-defense'],
-            "spe": stats['speed'], "bst": bst
+            "spe": stats['speed'], "bst": bst,
+            "types": types
         }
         if i % 100 == 0: print(f"Serialized {i} entries...")
         
     return full_stats
 
-'''full_dict = get_complete_pokedex()
+full_dict = get_complete_pokedex()
 with open("pokedex.json", "w") as f:
     json.dump(full_dict, f, indent=2)
-print("Done, saved data to pokedex.json")'''
+print("Done, saved data to pokedex.json")
 
+'''
 def get_all_gen9_usable_moves():
     """Fetches all moves currently usable in Generation 9."""
     # This endpoint gets all moves; you can filter by 'generation' in the logic
@@ -56,4 +59,4 @@ def get_all_gen9_usable_moves():
 full_move_list = get_all_gen9_usable_moves()
 with open("moveDB.json", 'w') as f:
     json.dump(full_move_list, f, indent=2)
-print("Move List saved")
+print("Move List saved")'''
