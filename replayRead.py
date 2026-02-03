@@ -31,6 +31,7 @@ def bigReplay(fileName="singlesBattle.json", ):
         teamsEnd = battleLog.index("teampreview")
         fullTeams = battleLog[teamsStart+10:teamsEnd-2]
         teamList = fullTeams.split("\n")
+        print(teamList)
         for poke in teamList:
             if "p1" in poke:
                 pokeStart = poke.index("p1|")
@@ -90,10 +91,10 @@ def bigReplay(fileName="singlesBattle.json", ):
     
     #Ogerpon-wellspring-mask, Ursaluna-bloodmoon, Feraligatr-mega
     #Find a consistent way to fix this even if hard coded for these mons,maybe fix pokedex to match showdown
-
+    #EVERY SINGLE NAME IN POKEDEX.JSON NEEDS TO BE CHECKED AGAINST SHOWDOWN TEAM EXPORTS
     for pokeName in userDictionary:
+        print(pokeName)
         newTypes = pokedex[pokeName]["types"]
-        print(newTypes)
         userDictionary[pokeName]["activeType"] = newTypes
     print(userDictionary)
 

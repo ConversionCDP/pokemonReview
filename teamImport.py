@@ -15,9 +15,13 @@ def teamCreation(string):
         }
     z = 1
     for pokemon in newList:
+        if "(F)" in pokemon:
+            pokemon = pokemon.replace("(F)", "")
+        elif "(M)" in pokemon:
+            pokemon = pokemon.replace("(M)", "")
         itemIndex = pokemon.index("@")
         lineEnd = pokemon.index("\n")
-        name = pokemon[:itemIndex-1]
+        name = (pokemon[:itemIndex-1]).strip()
         item = (pokemon[itemIndex+1:lineEnd]).strip()
 
         abilityIndex = pokemon.index(":")

@@ -17,7 +17,7 @@ def get_complete_pokedex():
         bst = sum(stats.values())
         
         # Standardize naming and structure
-        full_stats[name.capitalize()] = {
+        full_stats[name.lower()] = {
             "hp": stats['hp'], "atk": stats['attack'], "def": stats['defense'],
             "spa": stats['special-attack'], "spd": stats['special-defense'],
             "spe": stats['speed'], "bst": bst,
