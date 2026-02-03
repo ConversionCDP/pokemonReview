@@ -81,6 +81,7 @@ if usedMove in moves:
     move = moves[usedMove]
     print(move)
 
+target = target.lower()
 #hp, atk, def, spa, spd, spe
 if target in pokedex:
     stats = pokedex[target]

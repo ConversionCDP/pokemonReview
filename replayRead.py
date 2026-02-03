@@ -1,19 +1,57 @@
 import json
 from teamImport import teamCreation
 from teamString import string
-from damageCalc import loadPokedex, loadSmogon
+from damageCalc import loadPokedex, loadSmogon, loadMoves, calculateStat, calcPossibleByPercentage
 
-def damageSend(player, playerDictionary, pokeName, sepTurn):
+pokedex = loadPokedex()
+smogon = loadSmogon()
+moves = loadMoves()
+
+def damageUpdate(player, playerDictionary, pokeName, sepTurn):
     healthIndex = sepTurn.index(player)
     healthStart = sepTurn.index("|", healthIndex)
     healthEnd = sepTurn.index("/", healthStart)
     newHealth = int(sepTurn[healthStart+1:healthEnd])
     if "p1a" in player:
-        playerDictionary[pokeName]["health"] = newHealth
+        playerDictionary[pokeName]["health"] = newHealth  
     else:
         for number in playerDictionary:
             if number['pokemon'] == pokeName:
                 playerDictionary[number]['health'] == newHealth
+    return playerDictionary
+
+def solveSet(playerDictionary, pokeName, usedMove, percentageTaken, userAtk):
+    
+    if usedMove in moves:
+        move = moves[usedMove]
+
+    possibleSet = []
+    searchName = pokeName.lower()
+    if searchName in pokedex:
+        stats = pokedex[searchName]
+    setList = playerDictionary[pokeName]["possibleSets"]
+
+    for possible in setList:
+        hp = calculateStat(base=stats['hp'], ev = int(possible[1][0]), iv=31, level=100, isHP=True, nature=1.0)
+        if move['category'] == "Physical" and possible[0] in ("Bold", "Impish", "Lax", "Relaxed"):
+            defensiveStat = calculateStat(base=stats['def'], ev=int(possible[1][2]), iv=31, level=100, isHP=False, nature = 1.1)
+        elif move['category'] == "Physical" and possible[0] in ("Lonely", "Mild", "Gentle", "Hasty"):
+            defensiveStat = calculateStat(base=stats['def'], ev=int(possible[1][2]), iv=31, level=100, isHP=False, nature=0.9)
+        elif move['category'] == "Physical":
+            defensiveStat = calculateStat(base=stats['def'], ev=int(possible[1][2]), iv=31, level=100, isHP=False, nature=1.0)
+        elif move['category'] == "Special" and possible[0] in ("Calm", "Gentle", "Careful", "Sassy"):
+            defensiveStat = calculateStat(base=stats['spd'], ev=int(possible[1][4]), iv=31, level=100, isHP=False, nature=1.1)
+        elif move['category'] == "Special" and possible[0] in ("Naughty", "Lax", "Rash", "Naive"):
+            defensiveStat = calculateStat(base=stats['spd'], ev=int(possible[1][4]), iv=31, level=100, isHP=False, nature=0.9)
+        elif move['category'] == "Special":
+            defensiveStat = calculateStat(base=stats['spd'], ev=int(possible[1][4]), iv=31, level=100, isHP=False, nature=1.0)
+        
+        
+        low, high = calcPossibleByPercentage(100, userAtk, move['power'], hp, defensiveStat, modifiers=1.5)
+        if low <= percentageTaken <= high:
+            possibleSet.append(possible)
+
+    playerDictionary[pokeName]["possibleSets"] = possibleSet
     return playerDictionary
 
 def bigReplay(fileName="singlesBattle.json", ):
@@ -31,7 +69,6 @@ def bigReplay(fileName="singlesBattle.json", ):
         teamsEnd = battleLog.index("teampreview")
         fullTeams = battleLog[teamsStart+10:teamsEnd-2]
         teamList = fullTeams.split("\n")
-        print(teamList)
         for poke in teamList:
             if "p1" in poke:
                 pokeStart = poke.index("p1|")
@@ -65,12 +102,12 @@ def bigReplay(fileName="singlesBattle.json", ):
 
     for x in range(0, len(p1Team)):
         tempP1Team = p1Team[x]
-        tempP2Team = p2Team[x]
         oppDictionary[tempP1Team[0]] = {"health": 100,
                                         "moves": set(),
                                         "possibleSets": [],
                                         "ability": [],
                                         "item": "",
+                                        "tera": "",
                                         "boosts": [0, 0, 0, 0, 0],
                                         "activeType": ""}
     #Importing userDictionary to be used from teamImport
@@ -87,16 +124,35 @@ def bigReplay(fileName="singlesBattle.json", ):
                                            "nature": tempUserDictionary[poke]["nature"],
                                            "activeType": []}
 
-    pokedex = loadPokedex()
     
-    #Ogerpon-wellspring-mask, Ursaluna-bloodmoon, Feraligatr-mega
-    #Find a consistent way to fix this even if hard coded for these mons,maybe fix pokedex to match showdown
-    #EVERY SINGLE NAME IN POKEDEX.JSON NEEDS TO BE CHECKED AGAINST SHOWDOWN TEAM EXPORTS
+    
+    #oppTeam sets and active type set
+    for pokeName in oppDictionary:
+        setList = []
+        searchName = pokeName.lower()
+        newTypes = pokedex[searchName]["types"]
+        oppDictionary[pokeName]["activeType"] = newTypes
+
+        if pokeName in smogon:
+            sets = smogon[pokeName]['spreads']
+            sets = list(sets.keys())
+        
+        for x in range(0, len(sets)):
+            setString = str(sets[x])
+            colon = setString.index(":")
+            nature = setString[:colon]
+            EVs = setString[colon+1:]
+            statList = EVs.split("/")
+            tempList = [nature, statList]
+            setList.append(tempList)
+        
+        oppDictionary[pokeName]["possibleSets"] = setList
+
+
     for pokeName in userDictionary:
-        print(pokeName)
-        newTypes = pokedex[pokeName]["types"]
+        searchName = pokeName.lower()
+        newTypes = pokedex[searchName]["types"]
         userDictionary[pokeName]["activeType"] = newTypes
-    print(userDictionary)
 
     #Start Turn Stuff
     if "turn|1" in battleLog:
@@ -108,7 +164,6 @@ def bigReplay(fileName="singlesBattle.json", ):
 
     for turn in turnList:
         splitTurns = turn.split("\n")
-        print(turn)
         for sepTurn in splitTurns:
             print(sepTurn)
             if "move" in sepTurn:
@@ -139,7 +194,6 @@ def bigReplay(fileName="singlesBattle.json", ):
                             poke1Name = (sepTurn[poke1Index+4:poke1Endex]).strip()
                         else:
                             poke1Name = (sepTurn[poke1Index+4:]).strip()
-                            print(poke1Name)
                 elif p1Count > p2Count:
                     #find p1 used move which target itself
                     poke1Index = sepTurn.index("p1a:")
@@ -160,20 +214,19 @@ def bigReplay(fileName="singlesBattle.json", ):
                         pass
                 else:
                     if "p1a" in sepTurn:
-                        oppDictionary = damageSend("p1a:", oppDictionary, poke1Name, sepTurn)
-                        print(oppDictionary)
-                        #Once you have the dictionary for health updated, need to call damage functions
-                        #Also need to call functions to get data then pass all data to damage functions to find potential sets
-                        #Return potential sets and update dictionary
+                        preHealth = oppDictionary[poke1Name]["health"]
+                        oppDictionary = damageUpdate("p1a:", oppDictionary, poke1Name, sepTurn)
+                        postHealth = oppDictionary[poke1Name]["health"]
+                        perTaken = (int(preHealth))-(int(postHealth))
+                        #So that you don't have to pass a static attack stat make sure to calc the attack sttat using the function with the attacking mon
+                        oppDictionary = solveSet(oppDictionary, poke1Name, poke2Move, perTaken, userAtk=212)
                     elif "p2a" in sepTurn:
-                        userDictionary = damageSend("p2a:", userDictionary, poke2Name, sepTurn)
-                        print(userDictionary)
+                        userDictionary = damageUpdate("p2a:", userDictionary, poke2Name, sepTurn)
             elif "-boost" in sepTurn:
                 if "p1a" in sepTurn:
                     statIndex = sepTurn.index(poke1Name)
                     statEndex = sepTurn.index("|")
                     stat = (sepTurn[statEndex:]).split("|")
-                    print(stat)
                     #I need to find out how they label all boosts since they are lower case
                     tempBoost = oppDictionary[poke1Name]["boosts"]
                     if stat[0] == "atk":
@@ -186,14 +239,12 @@ def bigReplay(fileName="singlesBattle.json", ):
                         tempBoost[3] == tempBoost[3]+stat[1]
                     elif stat[0] == "spe":
                         tempBoost[4] == tempBoost[4]+stat[1]
-                    print(tempBoost)
                     oppDictionary[poke1Name]["boosts"] == tempBoost
                     #make sure you do math, because the boosts probably only show the additive/negative instead of total
                 else:
                     statIndex = sepTurn.index(poke2Name)
                     statEndex = sepTurn.index("|")
                     stat = (sepTurn[statEndex:]).split("|")
-                    print(stat)
                     #update userDictionary after writing code to reformat
                     tempBoost = userDictionary
             elif "-terastallize" in sepTurn:

@@ -1022,7 +1022,7 @@
       "steel"
     ]
   },
-  "farfetchd": {
+  "farfetch'd": {
     "hp": 52,
     "atk": 90,
     "def": 55,
@@ -1504,7 +1504,7 @@
       "psychic"
     ]
   },
-  "mr-mime": {
+  "mr. mime": {
     "hp": 40,
     "atk": 45,
     "def": 65,
@@ -4801,7 +4801,7 @@
       "psychic"
     ]
   },
-  "deoxys-normal": {
+  "deoxys": {
     "hp": 50,
     "atk": 150,
     "def": 50,
@@ -5137,7 +5137,7 @@
       "bug"
     ]
   },
-  "wormadam-plant": {
+  "wormadam": {
     "hp": 60,
     "atk": 59,
     "def": 85,
@@ -5461,7 +5461,7 @@
       "rock"
     ]
   },
-  "mime-jr": {
+  "mime jr.": {
     "hp": 20,
     "atk": 25,
     "def": 45,
@@ -6065,7 +6065,7 @@
       "normal"
     ]
   },
-  "giratina-altered": {
+  "giratina": {
     "hp": 150,
     "atk": 100,
     "def": 120,
@@ -6126,7 +6126,7 @@
       "dark"
     ]
   },
-  "shaymin-land": {
+  "shaymin": {
     "hp": 100,
     "atk": 100,
     "def": 100,
@@ -6841,7 +6841,7 @@
       "grass"
     ]
   },
-  "basculin-red-striped": {
+  "basculin": {
     "hp": 70,
     "atk": 92,
     "def": 65,
@@ -6904,7 +6904,7 @@
       "fire"
     ]
   },
-  "darmanitan-standard": {
+  "darmanitan": {
     "hp": 105,
     "atk": 140,
     "def": 55,
@@ -7980,7 +7980,7 @@
       "fighting"
     ]
   },
-  "tornadus-incarnate": {
+  "tornadus": {
     "hp": 79,
     "atk": 115,
     "def": 70,
@@ -7992,7 +7992,7 @@
       "flying"
     ]
   },
-  "thundurus-incarnate": {
+  "thundurus": {
     "hp": 79,
     "atk": 115,
     "def": 70,
@@ -8031,7 +8031,7 @@
       "electric"
     ]
   },
-  "landorus-incarnate": {
+  "landorus": {
     "hp": 89,
     "atk": 125,
     "def": 90,
@@ -8057,7 +8057,7 @@
       "ice"
     ]
   },
-  "keldeo-ordinary": {
+  "keldeo": {
     "hp": 91,
     "atk": 72,
     "def": 90,
@@ -8070,7 +8070,7 @@
       "fighting"
     ]
   },
-  "meloetta-aria": {
+  "meloetta": {
     "hp": 100,
     "atk": 77,
     "def": 77,
@@ -8443,7 +8443,7 @@
       "psychic"
     ]
   },
-  "meowstic-male": {
+  "meowstic": {
     "hp": 74,
     "atk": 48,
     "def": 76,
@@ -8481,7 +8481,7 @@
       "ghost"
     ]
   },
-  "aegislash-shield": {
+  "aegislash": {
     "hp": 60,
     "atk": 50,
     "def": 140,
@@ -8848,7 +8848,7 @@
       "grass"
     ]
   },
-  "pumpkaboo-average": {
+  "pumpkaboo": {
     "hp": 49,
     "atk": 66,
     "def": 70,
@@ -8861,7 +8861,7 @@
       "grass"
     ]
   },
-  "gourgeist-average": {
+  "gourgeist": {
     "hp": 65,
     "atk": 90,
     "def": 122,
@@ -8949,7 +8949,7 @@
       "flying"
     ]
   },
-  "zygarde-50": {
+  "zygarde": {
     "hp": 108,
     "atk": 100,
     "def": 121,
@@ -9240,7 +9240,7 @@
       "ice"
     ]
   },
-  "oricorio-baile": {
+  "oricorio": {
     "hp": 75,
     "atk": 70,
     "def": 70,
@@ -9291,7 +9291,7 @@
       "rock"
     ]
   },
-  "lycanroc-midday": {
+  "lycanroc": {
     "hp": 75,
     "atk": 115,
     "def": 65,
@@ -9303,7 +9303,7 @@
       "rock"
     ]
   },
-  "wishiwashi-solo": {
+  "wishiwashi": {
     "hp": 45,
     "atk": 20,
     "def": 20,
@@ -9630,7 +9630,7 @@
       "water"
     ]
   },
-  "type-null": {
+  "type: null": {
     "hp": 95,
     "atk": 95,
     "def": 95,
@@ -9654,7 +9654,7 @@
       "normal"
     ]
   },
-  "minior-red-meteor": {
+  "minior-meteor": {
     "hp": 60,
     "atk": 60,
     "def": 100,
@@ -9705,7 +9705,7 @@
       "steel"
     ]
   },
-  "mimikyu-disguised": {
+  "mimikyu": {
     "hp": 55,
     "atk": 90,
     "def": 80,
@@ -10591,7 +10591,7 @@
       "poison"
     ]
   },
-  "toxtricity-amped": {
+  "toxtricity": {
     "hp": 75,
     "atk": 98,
     "def": 70,
@@ -10803,7 +10803,7 @@
       "fighting"
     ]
   },
-  "mr-rime": {
+  "mr. rime": {
     "hp": 80,
     "atk": 85,
     "def": 75,
@@ -10915,7 +10915,7 @@
       "rock"
     ]
   },
-  "eiscue-ice": {
+  "eiscue": {
     "hp": 75,
     "atk": 80,
     "def": 110,
@@ -10927,7 +10927,7 @@
       "ice"
     ]
   },
-  "indeedee-male": {
+  "indeedee": {
     "hp": 60,
     "atk": 65,
     "def": 55,
@@ -10940,7 +10940,7 @@
       "normal"
     ]
   },
-  "morpeko-full-belly": {
+  "morpeko": {
     "hp": 58,
     "atk": 95,
     "def": 58,
@@ -11130,7 +11130,7 @@
       "fighting"
     ]
   },
-  "urshifu-single-strike": {
+  "urshifu": {
     "hp": 100,
     "atk": 130,
     "def": 100,
@@ -11256,7 +11256,7 @@
       "normal"
     ]
   },
-  "basculegion-male": {
+  "basculegion": {
     "hp": 120,
     "atk": 112,
     "def": 65,
@@ -11295,7 +11295,7 @@
       "poison"
     ]
   },
-  "enamorus-incarnate": {
+  "enamorus": {
     "hp": 74,
     "atk": 115,
     "def": 70,
@@ -11431,7 +11431,7 @@
       "normal"
     ]
   },
-  "oinkologne-male": {
+  "oinkologne": {
     "hp": 110,
     "atk": 100,
     "def": 75,
@@ -11542,7 +11542,7 @@
       "normal"
     ]
   },
-  "maushold-family-of-four": {
+  "maushold-four": {
     "hp": 74,
     "atk": 75,
     "def": 70,
@@ -11617,7 +11617,7 @@
       "normal"
     ]
   },
-  "squawkabilly-green-plumage": {
+  "squawkabilly": {
     "hp": 82,
     "atk": 96,
     "def": 51,
@@ -12030,7 +12030,7 @@
       "water"
     ]
   },
-  "palafin-zero": {
+  "palafin": {
     "hp": 100,
     "atk": 70,
     "def": 72,
@@ -12205,7 +12205,7 @@
       "water"
     ]
   },
-  "tatsugiri-curly": {
+  "tatsugiri": {
     "hp": 68,
     "atk": 50,
     "def": 60,
@@ -12257,7 +12257,7 @@
       "psychic"
     ]
   },
-  "dudunsparce-two-segment": {
+  "dudunsparce": {
     "hp": 125,
     "atk": 100,
     "def": 80,
@@ -12282,7 +12282,7 @@
       "steel"
     ]
   },
-  "great-tusk": {
+  "great tusk": {
     "hp": 115,
     "atk": 131,
     "def": 131,
@@ -12295,7 +12295,7 @@
       "fighting"
     ]
   },
-  "scream-tail": {
+  "scream tail": {
     "hp": 115,
     "atk": 65,
     "def": 99,
@@ -12308,7 +12308,7 @@
       "psychic"
     ]
   },
-  "brute-bonnet": {
+  "brute bonnet": {
     "hp": 111,
     "atk": 127,
     "def": 99,
@@ -12321,7 +12321,7 @@
       "dark"
     ]
   },
-  "flutter-mane": {
+  "flutter mane": {
     "hp": 55,
     "atk": 55,
     "def": 55,
@@ -12334,7 +12334,7 @@
       "fairy"
     ]
   },
-  "slither-wing": {
+  "slither wing": {
     "hp": 85,
     "atk": 135,
     "def": 79,
@@ -12347,7 +12347,7 @@
       "fighting"
     ]
   },
-  "sandy-shocks": {
+  "sandy shocks": {
     "hp": 85,
     "atk": 81,
     "def": 97,
@@ -12360,7 +12360,7 @@
       "ground"
     ]
   },
-  "iron-treads": {
+  "iron treads": {
     "hp": 90,
     "atk": 112,
     "def": 120,
@@ -12373,7 +12373,7 @@
       "steel"
     ]
   },
-  "iron-bundle": {
+  "iron bundle": {
     "hp": 56,
     "atk": 80,
     "def": 114,
@@ -12386,7 +12386,7 @@
       "water"
     ]
   },
-  "iron-hands": {
+  "iron hands": {
     "hp": 154,
     "atk": 140,
     "def": 108,
@@ -12399,7 +12399,7 @@
       "electric"
     ]
   },
-  "iron-jugulis": {
+  "iron jugulis": {
     "hp": 94,
     "atk": 80,
     "def": 86,
@@ -12412,7 +12412,7 @@
       "flying"
     ]
   },
-  "iron-moth": {
+  "iron moth": {
     "hp": 80,
     "atk": 70,
     "def": 60,
@@ -12425,7 +12425,7 @@
       "poison"
     ]
   },
-  "iron-thorns": {
+  "iron thorns": {
     "hp": 100,
     "atk": 134,
     "def": 110,
@@ -12554,7 +12554,7 @@
       "fire"
     ]
   },
-  "roaring-moon": {
+  "roaring moon": {
     "hp": 105,
     "atk": 139,
     "def": 71,
@@ -12567,7 +12567,7 @@
       "dark"
     ]
   },
-  "iron-valiant": {
+  "iron valiant": {
     "hp": 74,
     "atk": 130,
     "def": 90,
@@ -12606,7 +12606,7 @@
       "dragon"
     ]
   },
-  "walking-wake": {
+  "walking wake": {
     "hp": 99,
     "atk": 83,
     "def": 91,
@@ -12619,7 +12619,7 @@
       "dragon"
     ]
   },
-  "iron-leaves": {
+  "iron leaves": {
     "hp": 90,
     "atk": 130,
     "def": 88,
@@ -12748,7 +12748,7 @@
       "dragon"
     ]
   },
-  "gouging-fire": {
+  "gouging fire": {
     "hp": 105,
     "atk": 115,
     "def": 121,
@@ -12761,7 +12761,7 @@
       "dragon"
     ]
   },
-  "raging-bolt": {
+  "raging bolt": {
     "hp": 125,
     "atk": 73,
     "def": 91,
@@ -12774,7 +12774,7 @@
       "dragon"
     ]
   },
-  "iron-boulder": {
+  "iron boulder": {
     "hp": 90,
     "atk": 120,
     "def": 80,
@@ -12787,7 +12787,7 @@
       "psychic"
     ]
   },
-  "iron-crown": {
+  "iron crown": {
     "hp": 90,
     "atk": 72,
     "def": 100,
@@ -13129,7 +13129,7 @@
       "fighting"
     ]
   },
-  "meowstic-female": {
+  "meowstic-f": {
     "hp": 74,
     "atk": 48,
     "def": 76,
@@ -13995,7 +13995,7 @@
       "normal"
     ]
   },
-  "raticate-totem-alola": {
+  "raticate-alola-totem": {
     "hp": 75,
     "atk": 71,
     "def": 70,
@@ -14008,7 +14008,7 @@
       "normal"
     ]
   },
-  "pikachu-original-cap": {
+  "pikachu-original": {
     "hp": 35,
     "atk": 55,
     "def": 40,
@@ -14020,7 +14020,7 @@
       "electric"
     ]
   },
-  "pikachu-hoenn-cap": {
+  "pikachu-hoenn": {
     "hp": 35,
     "atk": 55,
     "def": 40,
@@ -14032,7 +14032,7 @@
       "electric"
     ]
   },
-  "pikachu-sinnoh-cap": {
+  "pikachu-sinnoh": {
     "hp": 35,
     "atk": 55,
     "def": 40,
@@ -14044,7 +14044,7 @@
       "electric"
     ]
   },
-  "pikachu-unova-cap": {
+  "pikachu-unova": {
     "hp": 35,
     "atk": 55,
     "def": 40,
@@ -14056,7 +14056,7 @@
       "electric"
     ]
   },
-  "pikachu-kalos-cap": {
+  "pikachu-kalos": {
     "hp": 35,
     "atk": 55,
     "def": 40,
@@ -14068,7 +14068,7 @@
       "electric"
     ]
   },
-  "pikachu-alola-cap": {
+  "pikachu-alola": {
     "hp": 35,
     "atk": 55,
     "def": 40,
@@ -14285,7 +14285,7 @@
       "ghost"
     ]
   },
-  "greninja-battle-bond": {
+  "greninja-bond": {
     "hp": 72,
     "atk": 95,
     "def": 67,
@@ -14311,7 +14311,7 @@
       "dark"
     ]
   },
-  "zygarde-10-power-construct": {
+  "zygarde-10%": {
     "hp": 54,
     "atk": 100,
     "def": 71,
@@ -14319,19 +14319,6 @@
     "spd": 85,
     "spe": 115,
     "bst": 486,
-    "types": [
-      "dragon",
-      "ground"
-    ]
-  },
-  "zygarde-50-power-construct": {
-    "hp": 108,
-    "atk": 100,
-    "def": 121,
-    "spa": 81,
-    "spd": 95,
-    "spe": 95,
-    "bst": 600,
     "types": [
       "dragon",
       "ground"
@@ -14388,7 +14375,7 @@
       "flying"
     ]
   },
-  "oricorio-pau": {
+  "oricorio-pa'u": {
     "hp": 75,
     "atk": 70,
     "def": 70,
@@ -14464,71 +14451,6 @@
     ]
   },
   "minior-orange-meteor": {
-    "hp": 60,
-    "atk": 60,
-    "def": 100,
-    "spa": 60,
-    "spd": 100,
-    "spe": 60,
-    "bst": 440,
-    "types": [
-      "rock",
-      "flying"
-    ]
-  },
-  "minior-yellow-meteor": {
-    "hp": 60,
-    "atk": 60,
-    "def": 100,
-    "spa": 60,
-    "spd": 100,
-    "spe": 60,
-    "bst": 440,
-    "types": [
-      "rock",
-      "flying"
-    ]
-  },
-  "minior-green-meteor": {
-    "hp": 60,
-    "atk": 60,
-    "def": 100,
-    "spa": 60,
-    "spd": 100,
-    "spe": 60,
-    "bst": 440,
-    "types": [
-      "rock",
-      "flying"
-    ]
-  },
-  "minior-blue-meteor": {
-    "hp": 60,
-    "atk": 60,
-    "def": 100,
-    "spa": 60,
-    "spd": 100,
-    "spe": 60,
-    "bst": 440,
-    "types": [
-      "rock",
-      "flying"
-    ]
-  },
-  "minior-indigo-meteor": {
-    "hp": 60,
-    "atk": 60,
-    "def": 100,
-    "spa": 60,
-    "spd": 100,
-    "spe": 60,
-    "bst": 440,
-    "types": [
-      "rock",
-      "flying"
-    ]
-  },
-  "minior-violet-meteor": {
     "hp": 60,
     "atk": 60,
     "def": 100,
@@ -14645,7 +14567,7 @@
       "fairy"
     ]
   },
-  "mimikyu-totem-disguised": {
+  "mimikyu-totem": {
     "hp": 55,
     "atk": 90,
     "def": 80,
@@ -14658,7 +14580,7 @@
       "fairy"
     ]
   },
-  "mimikyu-totem-busted": {
+  "mimikyu-busted-totem": {
     "hp": 55,
     "atk": 90,
     "def": 80,
@@ -14697,7 +14619,7 @@
       "fairy"
     ]
   },
-  "pikachu-partner-cap": {
+  "pikachu-partner": {
     "hp": 35,
     "atk": 55,
     "def": 40,
@@ -14735,7 +14657,7 @@
       "fairy"
     ]
   },
-  "rockruff-own-tempo": {
+  "rockruff-dusk": {
     "hp": 45,
     "atk": 65,
     "def": 40,
@@ -14785,7 +14707,7 @@
       "steel"
     ]
   },
-  "necrozma-dusk": {
+  "necrozma-dusk-wings": {
     "hp": 97,
     "atk": 157,
     "def": 127,
@@ -14798,7 +14720,7 @@
       "steel"
     ]
   },
-  "necrozma-dawn": {
+  "necrozma-dawn-mane": {
     "hp": 97,
     "atk": 113,
     "def": 109,
@@ -14848,7 +14770,7 @@
       "normal"
     ]
   },
-  "pikachu-world-cap": {
+  "pikachu-world": {
     "hp": 35,
     "atk": 55,
     "def": 40,
@@ -14922,7 +14844,7 @@
       "psychic"
     ]
   },
-  "farfetchd-galar": {
+  "farfetch'd-galar": {
     "hp": 52,
     "atk": 95,
     "def": 55,
@@ -14947,7 +14869,7 @@
       "fairy"
     ]
   },
-  "mr-mime-galar": {
+  "mr. mime-galar": {
     "hp": 50,
     "atk": 65,
     "def": 65,
@@ -15062,7 +14984,7 @@
       "ice"
     ]
   },
-  "darmanitan-galar-standard": {
+  "darmanitan-galar": {
     "hp": 105,
     "atk": 140,
     "def": 55,
@@ -15111,19 +15033,6 @@
     "types": [
       "ground",
       "steel"
-    ]
-  },
-  "zygarde-10": {
-    "hp": 54,
-    "atk": 100,
-    "def": 71,
-    "spa": 61,
-    "spd": 85,
-    "spe": 115,
-    "bst": 486,
-    "types": [
-      "dragon",
-      "ground"
     ]
   },
   "cramorant-gulping": {
@@ -15177,7 +15086,7 @@
       "ice"
     ]
   },
-  "indeedee-female": {
+  "indeedee-f": {
     "hp": 70,
     "atk": 55,
     "def": 65,
@@ -15593,7 +15502,7 @@
       "ground"
     ]
   },
-  "toxtricity-amped-gmax": {
+  "toxtricity-gmax": {
     "hp": 75,
     "atk": 98,
     "def": 70,
@@ -15682,7 +15591,7 @@
       "dragon"
     ]
   },
-  "urshifu-single-strike-gmax": {
+  "urshifu-gmax": {
     "hp": 100,
     "atk": 130,
     "def": 100,
@@ -15967,7 +15876,7 @@
       "water"
     ]
   },
-  "basculegion-female": {
+  "basculegion-f": {
     "hp": 120,
     "atk": 92,
     "def": 65,
@@ -15993,7 +15902,7 @@
       "flying"
     ]
   },
-  "tauros-paldea-combat-breed": {
+  "tauros-paldea-combat": {
     "hp": 75,
     "atk": 110,
     "def": 105,
@@ -16005,7 +15914,7 @@
       "fighting"
     ]
   },
-  "tauros-paldea-blaze-breed": {
+  "tauros-paldea-blaze": {
     "hp": 75,
     "atk": 110,
     "def": 105,
@@ -16018,7 +15927,7 @@
       "fire"
     ]
   },
-  "tauros-paldea-aqua-breed": {
+  "tauros-paldea-aqua": {
     "hp": 75,
     "atk": 110,
     "def": 105,
@@ -16044,7 +15953,7 @@
       "ground"
     ]
   },
-  "oinkologne-female": {
+  "oinkologne-f": {
     "hp": 115,
     "atk": 90,
     "def": 70,
@@ -16080,7 +15989,7 @@
       "water"
     ]
   },
-  "maushold-family-of-three": {
+  "maushold": {
     "hp": 74,
     "atk": 75,
     "def": 70,
@@ -16118,7 +16027,7 @@
       "water"
     ]
   },
-  "squawkabilly-blue-plumage": {
+  "squawkabilly-blue": {
     "hp": 82,
     "atk": 96,
     "def": 51,
@@ -16131,7 +16040,7 @@
       "flying"
     ]
   },
-  "squawkabilly-yellow-plumage": {
+  "squawkabilly-yellow": {
     "hp": 82,
     "atk": 96,
     "def": 51,
@@ -16144,7 +16053,7 @@
       "flying"
     ]
   },
-  "squawkabilly-white-plumage": {
+  "squawkabilly-white": {
     "hp": 82,
     "atk": 96,
     "def": 51,
@@ -16169,110 +16078,6 @@
       "ghost"
     ]
   },
-  "koraidon-limited-build": {
-    "hp": 100,
-    "atk": 135,
-    "def": 115,
-    "spa": 85,
-    "spd": 100,
-    "spe": 135,
-    "bst": 670,
-    "types": [
-      "fighting",
-      "dragon"
-    ]
-  },
-  "koraidon-sprinting-build": {
-    "hp": 100,
-    "atk": 135,
-    "def": 115,
-    "spa": 85,
-    "spd": 100,
-    "spe": 135,
-    "bst": 670,
-    "types": [
-      "fighting",
-      "dragon"
-    ]
-  },
-  "koraidon-swimming-build": {
-    "hp": 100,
-    "atk": 135,
-    "def": 115,
-    "spa": 85,
-    "spd": 100,
-    "spe": 135,
-    "bst": 670,
-    "types": [
-      "fighting",
-      "dragon"
-    ]
-  },
-  "koraidon-gliding-build": {
-    "hp": 100,
-    "atk": 135,
-    "def": 115,
-    "spa": 85,
-    "spd": 100,
-    "spe": 135,
-    "bst": 670,
-    "types": [
-      "fighting",
-      "dragon"
-    ]
-  },
-  "miraidon-low-power-mode": {
-    "hp": 100,
-    "atk": 85,
-    "def": 100,
-    "spa": 135,
-    "spd": 115,
-    "spe": 135,
-    "bst": 670,
-    "types": [
-      "electric",
-      "dragon"
-    ]
-  },
-  "miraidon-drive-mode": {
-    "hp": 100,
-    "atk": 85,
-    "def": 100,
-    "spa": 135,
-    "spd": 115,
-    "spe": 135,
-    "bst": 670,
-    "types": [
-      "electric",
-      "dragon"
-    ]
-  },
-  "miraidon-aquatic-mode": {
-    "hp": 100,
-    "atk": 85,
-    "def": 100,
-    "spa": 135,
-    "spd": 115,
-    "spe": 135,
-    "bst": 670,
-    "types": [
-      "electric",
-      "dragon"
-    ]
-  },
-  "miraidon-glide-mode": {
-    "hp": 100,
-    "atk": 85,
-    "def": 100,
-    "spa": 135,
-    "spd": 115,
-    "spe": 135,
-    "bst": 670,
-    "types": [
-      "electric",
-      "dragon"
-    ]
-  },
   "ursaluna-bloodmoon": {
     "hp": 113,
     "atk": 70,
@@ -16286,7 +16091,7 @@
       "normal"
     ]
   },
-  "ogerpon-wellspring-mask": {
+  "ogerpon-wellspring": {
     "hp": 80,
     "atk": 120,
     "def": 84,
@@ -16299,7 +16104,7 @@
       "water"
     ]
   },
-  "ogerpon-hearthflame-mask": {
+  "ogerpon-hearthflame": {
     "hp": 80,
     "atk": 120,
     "def": 84,
@@ -16312,7 +16117,7 @@
       "fire"
     ]
   },
-  "ogerpon-cornerstone-mask": {
+  "ogerpon-cornerstone": {
     "hp": 80,
     "atk": 120,
     "def": 84,
