@@ -20,7 +20,9 @@ def damageUpdate(player, playerDictionary, pokeName, sepTurn):
                 playerDictionary[number]['health'] == newHealth
     return playerDictionary
 
-def solveSet(playerDictionary, pokeName, usedMove, percentageTaken, userAtk):
+#NEED TO SOLVE MODIFIER CALCULATION TO NOT BE HARDCODED
+#ALSO IF NO SETS ARE RETURNED AFTER SOLVE SET THEN DON'T REMOVE ALL "POSSIBLESETS". THIS COULD BE THE CASE FOR SOMETHING LIKE ASSAULT VEST ITEM
+def solveDefSet(playerDictionary, pokeName, usedMove, percentageTaken, userAtk):
     
     if usedMove in moves:
         move = moves[usedMove]
@@ -32,20 +34,11 @@ def solveSet(playerDictionary, pokeName, usedMove, percentageTaken, userAtk):
     setList = playerDictionary[pokeName]["possibleSets"]
 
     for possible in setList:
-        hp = calculateStat(base=stats['hp'], ev = int(possible[1][0]), iv=31, level=100, isHP=True, nature=1.0)
-        if move['category'] == "Physical" and possible[0] in ("Bold", "Impish", "Lax", "Relaxed"):
-            defensiveStat = calculateStat(base=stats['def'], ev=int(possible[1][2]), iv=31, level=100, isHP=False, nature = 1.1)
-        elif move['category'] == "Physical" and possible[0] in ("Lonely", "Mild", "Gentle", "Hasty"):
-            defensiveStat = calculateStat(base=stats['def'], ev=int(possible[1][2]), iv=31, level=100, isHP=False, nature=0.9)
-        elif move['category'] == "Physical":
-            defensiveStat = calculateStat(base=stats['def'], ev=int(possible[1][2]), iv=31, level=100, isHP=False, nature=1.0)
-        elif move['category'] == "Special" and possible[0] in ("Calm", "Gentle", "Careful", "Sassy"):
-            defensiveStat = calculateStat(base=stats['spd'], ev=int(possible[1][4]), iv=31, level=100, isHP=False, nature=1.1)
-        elif move['category'] == "Special" and possible[0] in ("Naughty", "Lax", "Rash", "Naive"):
-            defensiveStat = calculateStat(base=stats['spd'], ev=int(possible[1][4]), iv=31, level=100, isHP=False, nature=0.9)
+        hp = calculateStat(base=stats['hp'], ev=int(possible[1][0]), iv=31, level=100, statName="hp", natureName=possible[0])
+        if move['category'] == "Physical":
+            defensiveStat = calculateStat(base=stats['def'], ev=int(possible[1][2]), iv=31, level=100, statName="def", natureName=possible[0])
         elif move['category'] == "Special":
-            defensiveStat = calculateStat(base=stats['spd'], ev=int(possible[1][4]), iv=31, level=100, isHP=False, nature=1.0)
-        
+            defensiveStat = calculateStat(base=stats['spd'], ev=int(possible[1][4]), iv=31, level=100, statName="spd", natureName=possible[0])
         
         low, high = calcPossibleByPercentage(100, userAtk, move['power'], hp, defensiveStat, modifiers=1.5)
         if low <= percentageTaken <= high:
@@ -102,6 +95,12 @@ def bigReplay(fileName="singlesBattle.json", ):
 
     for x in range(0, len(p1Team)):
         tempP1Team = p1Team[x]
+        searchName = tempP1Team[0].lower()
+        stats = pokedex[searchName]
+        newStatList = []
+        for statLine in stats:
+            if str(statLine) in "hp, atk, def, spa, spd, spe":
+                newStatList.append(stats[statLine])
         oppDictionary[tempP1Team[0]] = {"health": 100,
                                         "moves": set(),
                                         "possibleSets": [],
@@ -109,11 +108,18 @@ def bigReplay(fileName="singlesBattle.json", ):
                                         "item": "",
                                         "tera": "",
                                         "boosts": [0, 0, 0, 0, 0],
-                                        "activeType": ""}
+                                        "activeType": "",
+                                        "baseStats": newStatList}
     #Importing userDictionary to be used from teamImport
     tempUserDictionary = teamCreation(string)
     for poke in tempUserDictionary:
         newName = tempUserDictionary[poke]["pokemon"]
+        searchName = newName.lower()
+        stats = pokedex[searchName]
+        newStatList = []
+        for statLine in stats:
+            if str(statLine) in "hp, atk, def, spa, spd, spe":
+                newStatList.append(stats[statLine])
         userDictionary[newName] = {"health": 100,
                                            "moves": tempUserDictionary[poke]["moves"],
                                            "evs": tempUserDictionary[poke]["evs"],
@@ -122,9 +128,8 @@ def bigReplay(fileName="singlesBattle.json", ):
                                            "boosts": [0, 0, 0, 0, 0],
                                            "tera": tempUserDictionary[poke]["tera"],
                                            "nature": tempUserDictionary[poke]["nature"],
-                                           "activeType": []}
-
-    
+                                           "activeType": [],
+                                           "baseStats": newStatList}    
     
     #oppTeam sets and active type set
     for pokeName in oppDictionary:
@@ -211,15 +216,24 @@ def bigReplay(fileName="singlesBattle.json", ):
             elif "-damage" in sepTurn:
                 if "[from]" in sepTurn:
                     if "p1a" in sepTurn:
-                        pass
+                        preHealth = oppDictionary[poke1Name]["health"]
+                        oppDictionary = damageUpdate("p1a:", oppDictionary, poke1Name, sepTurn)
+                    elif "p2a" in sepTurn:
+                        oppDictionary = damageUpdate("p2a:", userDictionary, poke2Name, sepTurn)
                 else:
                     if "p1a" in sepTurn:
                         preHealth = oppDictionary[poke1Name]["health"]
                         oppDictionary = damageUpdate("p1a:", oppDictionary, poke1Name, sepTurn)
                         postHealth = oppDictionary[poke1Name]["health"]
                         perTaken = (int(preHealth))-(int(postHealth))
+                        if poke2Move in moves:
+                            usedMove = moves[poke2Move]
+                        if usedMove['category'] == "Physical":
+                            userAttack = calculateStat(userDictionary[poke2Name]["baseStats"][1], userDictionary[poke2Name]["evs"][1], iv=31, level=100, statName="atk", natureName=userDictionary[poke2Name]["nature"])
+                        elif usedMove['category'] == "Special":
+                            userAttack = calculateStat(userDictionary[poke2Name]["baseStats"][3], userDictionary[poke2Name]["evs"][3], iv=31, level=100, statName="spa", natureName=userDictionary[poke2Name]["nature"])
                         #So that you don't have to pass a static attack stat make sure to calc the attack sttat using the function with the attacking mon
-                        oppDictionary = solveSet(oppDictionary, poke1Name, poke2Move, perTaken, userAtk=212)
+                        oppDictionary = solveDefSet(oppDictionary, poke1Name, poke2Move, perTaken, userAttack)
                     elif "p2a" in sepTurn:
                         userDictionary = damageUpdate("p2a:", userDictionary, poke2Name, sepTurn)
             elif "-boost" in sepTurn:
@@ -249,6 +263,9 @@ def bigReplay(fileName="singlesBattle.json", ):
                     tempBoost = userDictionary
             elif "-terastallize" in sepTurn:
                 #use this to keep track of a pokemon's current type, might also consider moves like conversion and burn up
+                pass
+            elif "|switch|" in sepTurn:
+                #keep track of active pokemon on field to determine "positioning" stats later for heuristic
                 pass
 
 bigReplay()

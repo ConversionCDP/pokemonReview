@@ -46,8 +46,35 @@ def finalHPCalc(percentageTaken, sets):
             print(f"Set {setName} is impossible. Range: {low}% - {high}%")
 
 #Calculate Stats
-def calculateStat(base, ev, iv=31, level=100, isHP=False, nature=1.0):
-    if isHP:
+def calculateStat(base, ev, iv=31, level=100, statName="hp", natureName="Adamant"):
+    nature = 1.0
+    if statName == "atk":
+        if natureName in ("Lonely", "Adamant", "Naughty", "Brave"):
+            nature = 1.1
+        elif natureName in ("Bold", "Modest", "Calm", "Timid"):
+            nature = 0.9
+    elif statName == "def":
+        if natureName in ("Bold", "Impish", "Lax", "Relaxed"):
+            nature = 1.1
+        elif natureName in ("Lonely", "Mild", "Gentle", "Hasty"):
+            nature = 0.9
+    elif statName == "spa":
+        if natureName in ("Modest", "Mild", "Rash", "Quiet"):
+            nature = 1.1
+        elif natureName in ("Adamant", "Impish", "Careful", "Jolly"):
+            nature = 0.9
+    elif statName == "spd":
+        if natureName in ("Calm", "Gentle", "Careful", "Sassy"):
+            nature = 1.1
+        elif natureName in ("Naughty", "Lax", "Rash", "Naive"):
+            nature = 0.9
+    elif statName == "spe":
+        if natureName in ("Timid", "Hasty", "Jolly", "Naive"):
+            nature = 1.1
+        elif natureName in ("Brave", "Relaxed", "Quiet", "Sassy"):
+            nature = 0.9
+    
+    if statName=="hp":
         return ((2*base+iv+(ev//4))*level//100)+level+10
     else:
         stat = ((2*base+iv+(ev//4))*level//100)+5
@@ -72,14 +99,13 @@ pokedex = loadPokedex()
 smogon = loadSmogon()
 moves = loadMoves()
 
-attack = 182
+'''attack = 182
 possibleSet = []
 percentageTaken = 31
 target = "Suicune"
 usedMove = "Earthquake"
 if usedMove in moves:
     move = moves[usedMove]
-    print(move)
 
 target = target.lower()
 #hp, atk, def, spa, spd, spe
@@ -105,7 +131,6 @@ for x in range(0, len(sets)):
 
 for set in setList:
     hp = calculateStat(base=stats['hp'], ev = int(set[1][0]), iv=31, level=50, isHP=True, nature=1.0)
-    print(set[1])
     if move['category'] == "Physical" and set[0] in ("Bold", "Impish", "Lax", "Relaxed"):
         defensiveStat = calculateStat(base=stats['def'], ev=int(set[1][2]), iv=31, level=50, isHP=False, nature = 1.1)
     elif move['category'] == "Physical" and set[0] in ("Lonely", "Mild", "Gentle", "Hasty"):
@@ -123,11 +148,45 @@ for set in setList:
     low, high = calcPossibleByPercentage(50, 182, move['power'], hp, defensiveStat, modifiers=1.5)
     if low <= percentageTaken <= high:
         possibleSet.append(set)
+'''
 
-    print(possibleSet)
+#Calculate an opponents atk stat to narrow down sets using damager percentage taken by my mon
+def solveAtkSet(playerDictionary, pokeName, usedMove, percentageTaken, myHP, myDEF):
+    if usedMove in moves:
+        move = moves[usedMove]
 
-#actualDefense = calculateStat(base=stats['def'], ev=0, iv=31, level=78, isHP=False)
-#print(f"Iron Crown's HP at lvl 78: {actualDefense}")
+    if move['category'] == "Physical":
+        isPhysical = True
+        statKey = 'atk'
+        evIndex = 1
+    else:
+        isPhysical = False
+        statKey = 'spa'
+        evIndex = 3
 
+    searchName = pokeName.lower()
+    if searchName in pokedex:
+        baseStats = pokedex[searchName]
 
+    filteredSets = []
+    for possible in playerDictionary[pokeName]["possibleSets"]:
+        natureName = possible[0]
+        evs = int(possible[1][evIndex])
+
+        natureMult = 1.0
+        if isPhysical:
+            if natureName in ("Lonely", "Adamant", "Naughty", "Brave"): natureMult = 1.1
+            elif natureName in ("Bold", "Timid", "Modest", "Calm"): natureMult = 0.9
+        else:
+            if natureName in ("Mild", "Modest", "Rash", "Quiet"): natureMult = 1.1
+            elif natureName in ("Lonely", "Adamant", "Impish", "Careful"): natureMult = 0.9
+    
+        calcAtk = calculateStat(baseStats[statKey], evs, iv=31, level=100, isHP=False, nature=natureMult)
+
+        low, high = calcPossibleByPercentage(100, calcAtk, move['power'], myHP, myDEF, modifiers=1.5)
+        if low <= percentageTaken <= high:
+            filteredSets.append(possible)
+    
+    playerDictionary[pokeName]["possibleSets"] = filteredSets
+    return playerDictionary
 
