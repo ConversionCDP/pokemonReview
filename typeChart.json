@@ -1,0 +1,150 @@
+{
+    "Offensive": {
+        "Normal": {
+            "Super": [],
+            "Resist": []
+        },
+        "Fire": {
+            "Super": [],
+            "Resist": []
+        },
+        "Water": {
+            "Super": [],
+            "Resist": []
+        },
+        "Electric": {
+            "Super": [],
+            "Resist": []
+        },
+        "Grass": {
+            "Super": [],
+            "Resist": []
+        },
+        "Ice": {
+            "Super": [],
+            "Resist": []
+        },
+        "Fighting": {
+            "Super": [],
+            "Resist": []
+        },
+        "Poison": {
+            "Super": [],
+            "Resist": []
+        },
+        "Ground": {
+            "Super": [],
+            "Resist": []
+        },
+        "Flying": {
+            "Super": [],
+            "Resist": []
+        },
+        "Psychic": {
+            "Super": [],
+            "Resist": []
+        },
+        "Bug": {
+            "Super": [],
+            "Resist": []
+        },
+        "Rock": {
+            "Super": [],
+            "Resist": []
+        },
+        "Ghost": {
+            "Super": [],
+            "Resist": []
+        },
+        "Dragon": {
+            "Super": [],
+            "Resist": []
+        },
+        "Dark": {
+            "Super": [],
+            "Resist": []
+        },
+        "Steel": {
+            "Super": [],
+            "Resist": []
+        },
+        "Fairy": {
+            "Super": [],
+            "Resist": []
+        }
+    },
+    "Defensive": {
+        "Normal": {
+            "Super": [],
+            "Resist": []
+        },
+        "Fire": {
+            "Super": [],
+            "Resist": []
+        },
+        "Water": {
+            "Super": [],
+            "Resist": []
+        },
+        "Electric": {
+            "Super": [],
+            "Resist": []
+        },
+        "Grass": {
+            "Super": [],
+            "Resist": []
+        },
+        "Ice": {
+            "Super": [],
+            "Resist": []
+        },
+        "Fighting": {
+            "Super": [],
+            "Resist": []
+        },
+        "Poison": {
+            "Super": [],
+            "Resist": []
+        },
+        "Ground": {
+            "Super": [],
+            "Resist": []
+        },
+        "Flying": {
+            "Super": [],
+            "Resist": []
+        },
+        "Psychic": {
+            "Super": [],
+            "Resist": []
+        },
+        "Bug": {
+            "Super": [],
+            "Resist": []
+        },
+        "Rock": {
+            "Super": [],
+            "Resist": []
+        },
+        "Ghost": {
+            "Super": [],
+            "Resist": []
+        },
+        "Dragon": {
+            "Super": [],
+            "Resist": []
+        },
+        "Dark": {
+            "Super": [],
+            "Resist": []
+        },
+        "Steel": {
+            "Super": [],
+            "Resist": []
+        },
+        "Fairy": {
+            "Super": [],
+            "Resist": []
+        }
+    }
+}

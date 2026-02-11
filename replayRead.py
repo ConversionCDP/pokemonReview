@@ -7,6 +7,16 @@ pokedex = loadPokedex()
 smogon = loadSmogon()
 moves = loadMoves()
 
+def loadTypeChart():
+    filePath = "typeChart.json"
+    with open(filePath, "r") as f:
+        return json.load()
+
+typeChart = loadTypeChart()
+
+#Oppdictinary is team 1
+#Userdictionary is team 2
+
 def damageUpdate(player, playerDictionary, pokeName, sepTurn):
     healthIndex = sepTurn.index(player)
     healthStart = sepTurn.index("|", healthIndex)
@@ -19,6 +29,32 @@ def damageUpdate(player, playerDictionary, pokeName, sepTurn):
             if number['pokemon'] == pokeName:
                 playerDictionary[number]['health'] == newHealth
     return playerDictionary
+
+def modifierSolve(userName, targetName, usedMove, item, ability, oppDictionary, userDictionary, moveUserTeam):
+    finalMod = 1
+    if usedMove in moves:
+        move = moves[usedMove]
+        print(move)
+
+    if moveUserTeam == "p1a":
+        tempTypes = oppDictionary[userName]["activeType"]
+    
+    for type in tempTypes:
+        if type == move["type"]:
+            finalMod = finalMod*1.5
+    
+    if item:
+        if item == "Life Orb":
+            finalMod = finalMod*1.3
+        elif item == "Choice Band" and move['category'] == "Physical":
+            finalMod = finalMod*1.5
+        elif item == "Choice Specs" and move['category'] == "Special":
+            finalMod = finalMod*1.5
+##  MAKE A TYPE EFFECTIVENESS CALCULATOR USING A DICTIONARY FOR EACH TYPE
+##  SHOWDOWN DOES NOT TELL IF SOMETHING IS 0.25/4X EFFECTIVE
+
+    
+
 
 #NEED TO SOLVE MODIFIER CALCULATION TO NOT BE HARDCODED
 #ALSO IF NO SETS ARE RETURNED AFTER SOLVE SET THEN DON'T REMOVE ALL "POSSIBLESETS". THIS COULD BE THE CASE FOR SOMETHING LIKE ASSAULT VEST ITEM
@@ -166,7 +202,7 @@ def bigReplay(fileName="singlesBattle.json", ):
         turnList = battleTurns.split("|turn|")
 
     #Go through and find Health Updates every turn
-
+    print(turnList)
     for turn in turnList:
         splitTurns = turn.split("\n")
         for sepTurn in splitTurns:
