@@ -2,149 +2,185 @@
     "Offensive": {
         "Normal": {
             "Super": [],
-            "Resist": []
+            "Resist": ["Rock", "Steel"],
+            "Immune": ["Ghost"]
         },
         "Fire": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Grass", "Ice", "Bug", "Steel"],
+            "Resist": ["Fire", "Water", "Rock", "Dragon"],
+            "Immune": []
         },
         "Water": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Fire", "Ground", "Rock"],
+            "Resist": ["Water", "Grass", "Dragon"],
+            "Immune": []
         },
         "Electric": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Water", "Flying"],
+            "Resist": ["Electric", "Grass", "Dragon"],
+            "Immune": ["Ground"]
         },
         "Grass": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Water", "Ground", "Rock"],
+            "Resist": ["Fire", "Grass", "Poison", "Flying", "Bug", "Dragon", "Steel"],
+            "Immune": []
         },
         "Ice": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Grass", "Ground", "Flying", "Dragon"],
+            "Resist": ["Fire", "Water", "Ice", "Steel"],
+            "Immune": []
         },
         "Fighting": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Normal", "Ice", "Rock", "Dark", "Steel"],
+            "Resist": ["Poison", "Flying", "Psychic", "Bug", "Fairy"],
+            "Immune": ["Ghost"]
         },
         "Poison": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Grass", "Fairy"],
+            "Resist": ["Poison", "Ground", "Rock", "Ghost"],
+            "Immune": ["Steel"]
         },
         "Ground": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Fire", "Electric", "Poison", "Rock", "Steel"],
+            "Resist": ["Grass", "Bug"],
+            "Immune": ["Flying"]
         },
         "Flying": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Grass", "Fighting", "Bug"],
+            "Resist": ["Electric", "Rock", "Steel"],
+            "Immune": []
         },
         "Psychic": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Fighting", "Poison"],
+            "Resist": ["Psychic", "Steel"],
+            "Immune": ["Dark"]
         },
         "Bug": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Grass", "Psychic", "Dark"],
+            "Resist": ["Fire", "Fighting", "Poison", "Flying", "Ghost", "Steel", "Fairy"],
+            "Immune": []
         },
         "Rock": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Fire", "Ice", "Flying", "Bug"],
+            "Resist": ["Fighting", "Ground", "Steel"],
+            "Immune": []
         },
         "Ghost": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Psychic", "Ghost"],
+            "Resist": ["Dark"],
+            "Immune": ["Normal"]
         },
         "Dragon": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Dragon"],
+            "Resist": ["Steel"],
+            "Immune": ["Fairy"]
         },
         "Dark": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Psychic", "Ghost"],
+            "Resist": ["Fighting", "Dark", "Fairy"],
+            "Immune": []
         },
         "Steel": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Ice", "Rock", "Fairy"],
+            "Resist": ["Fire", "Water", "Electric", "Steel"],
+            "Immune": []
         },
         "Fairy": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Fighting", "Dragon", "Dark"],
+            "Resist": ["Fire", "Poison", "Steel"],
+            "Immune": []
         }
     },
     "Defensive": {
         "Normal": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Fighting"],
+            "Resist": [],
+            "Immune": ["Ghost"]
         },
         "Fire": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Water", "Ground", "Rock"],
+            "Resist": ["Fire", "Grass", "Ice", "Bug", "Steel", "Fairy"],
+            "Immune": []
         },
         "Water": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Electric", "Grass"],
+            "Resist": ["Fire", "Water", "Ice", "Steel"],
+            "Immune": []
         },
         "Electric": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Ground"],
+            "Resist": ["Electric", "Flying", "Steel"],
+            "Immune": []
         },
         "Grass": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Fire", "Ice", "Poison", "Flying", "Bug"],
+            "Resist": ["Water", "Electric", "Grass", "Ground"],
+            "Immune": []
         },
         "Ice": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Fire", "Fighting", "Rock", "Steel"],
+            "Resist": ["Ice"],
+            "Immune": []
         },
         "Fighting": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Flying", "Psychic", "Fairy"],
+            "Resist": ["Bug", "Rock", "Dark"],
+            "Immune": []
         },
         "Poison": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Ground", "Psychic"],
+            "Resist": ["Grass", "Fighting", "Poison", "Bug", "Fairy"],
+            "Immune": []
         },
         "Ground": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Water", "Grass", "Ice"],
+            "Resist": ["Poison", "Rock"],
+            "Immune": ["Electric"]
         },
         "Flying": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Electric", "Ice", "Rock"],
+            "Resist": ["Grass", "Fighting", "Bug"],
+            "Immune": ["Ground"]
         },
         "Psychic": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Bug", "Ghost", "Dark"],
+            "Resist": ["Fighting", "Psychic"],
+            "Immune": []
         },
         "Bug": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Fire", "Flying", "Rock"],
+            "Resist": ["Grass", "Fighting", "Ground"],
+            "Immune": []
         },
         "Rock": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Water", "Grass", "Fighting", "Ground", "Steel"],
+            "Resist": ["Normal", "Fire", "Poison", "Flying"],
+            "Immune": []
         },
         "Ghost": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Ghost", "Dark"],
+            "Resist": ["Poison", "Bug"],
+            "Immune": ["Normal", "Fighting"]
         },
         "Dragon": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Ice", "Dragon", "Fairy"],
+            "Resist": ["Fire", "Water", "Electric", "Grass"],
+            "Immune": []
         },
         "Dark": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Fighting", "Bug", "Fairy"],
+            "Resist": ["Ghost", "Dark"],
+            "Immune": ["Psychic"]
         },
         "Steel": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Fire", "Fighting", "Ground"],
+            "Resist": ["Normal", "Grass", "Ice", "Flying", "Psychic", "Bug", "Rock", "Dragon", "Steel", "Fairy"],
+            "Immune": ["Poison"]
         },
         "Fairy": {
-            "Super": [],
-            "Resist": []
+            "Super": ["Poison", "Steel"],
+            "Resist": ["Fighting", "bug", "Dark"],
+            "Immune": ["Dragon"]
         }
     }
 }

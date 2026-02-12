@@ -11,7 +11,7 @@ def loadTypeChart():
     filePath = "typeChart.json"
     with open(filePath, "r") as f:
         return json.load()
-
+    
 typeChart = loadTypeChart()
 
 #Oppdictinary is team 1
@@ -35,11 +35,26 @@ def modifierSolve(userName, targetName, usedMove, item, ability, oppDictionary, 
     if usedMove in moves:
         move = moves[usedMove]
         print(move)
-
-    if moveUserTeam == "p1a":
-        tempTypes = oppDictionary[userName]["activeType"]
     
-    for type in tempTypes:
+    #Effectiveness Calculator
+    if moveUserTeam == "p1a":
+        tempTypes = oppDictionary[targetName]["activeType"]
+        usedMoveType = move['type']
+        for currType in tempTypes:
+            if currType in typeChart["Defensive"]:
+                defTypeChart = typeChart["Defensive"]
+                if usedMoveType in defTypeChart[currType]["Super"]:
+                    finalMod = finalMod*2.0
+                elif usedMoveType in defTypeChart[currType]["Resist"]:
+                    finalMod = finalMod*0.5
+                elif usedMoveType in defTypeChart[currType]["Immune"]:
+                    finalMod = 0
+                else:
+                    finalMod = finalMod*1
+
+    #STAB Calculator
+    userTypes = userDictionary[userName]["activeType"]
+    for type in userTypes:
         if type == move["type"]:
             finalMod = finalMod*1.5
     
@@ -50,6 +65,8 @@ def modifierSolve(userName, targetName, usedMove, item, ability, oppDictionary, 
             finalMod = finalMod*1.5
         elif item == "Choice Specs" and move['category'] == "Special":
             finalMod = finalMod*1.5
+
+    
 ##  MAKE A TYPE EFFECTIVENESS CALCULATOR USING A DICTIONARY FOR EACH TYPE
 ##  SHOWDOWN DOES NOT TELL IF SOMETHING IS 0.25/4X EFFECTIVE
 
