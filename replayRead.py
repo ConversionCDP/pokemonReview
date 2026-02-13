@@ -10,7 +10,7 @@ moves = loadMoves()
 def loadTypeChart():
     filePath = "typeChart.json"
     with open(filePath, "r") as f:
-        return json.load()
+        return json.load(f)
     
 typeChart = loadTypeChart()
 
@@ -30,32 +30,32 @@ def damageUpdate(player, playerDictionary, pokeName, sepTurn):
                 playerDictionary[number]['health'] == newHealth
     return playerDictionary
 
-def modifierSolve(userName, targetName, usedMove, item, ability, oppDictionary, userDictionary, moveUserTeam):
+def modifierSolve(userName, targetName, usedMove, item, ability, targetDictionary, moveUserDictionary):
     finalMod = 1
     if usedMove in moves:
         move = moves[usedMove]
         print(move)
     
     #Effectiveness Calculator
-    if moveUserTeam == "p1a":
-        tempTypes = oppDictionary[targetName]["activeType"]
-        usedMoveType = move['type']
-        for currType in tempTypes:
-            if currType in typeChart["Defensive"]:
-                defTypeChart = typeChart["Defensive"]
-                if usedMoveType in defTypeChart[currType]["Super"]:
-                    finalMod = finalMod*2.0
-                elif usedMoveType in defTypeChart[currType]["Resist"]:
-                    finalMod = finalMod*0.5
-                elif usedMoveType in defTypeChart[currType]["Immune"]:
-                    finalMod = 0
-                else:
-                    finalMod = finalMod*1
+    tempTypes = targetDictionary[targetName]["activeType"]
+    usedMoveType = move['type']
+    for currType in tempTypes:
+        if currType.capitalize() in typeChart["Defensive"]:
+            currType = currType.capitalize()
+            defTypeChart = typeChart["Defensive"]
+            if usedMoveType in defTypeChart[currType]["Super"]:
+                finalMod = finalMod*2.0
+            elif usedMoveType in defTypeChart[currType]["Resist"]:
+                finalMod = finalMod*0.5
+            elif usedMoveType in defTypeChart[currType]["Immune"]:
+                finalMod = 0
+            else:
+                finalMod = finalMod*1
 
     #STAB Calculator
-    userTypes = userDictionary[userName]["activeType"]
+    userTypes = moveUserDictionary[userName]["activeType"]
     for type in userTypes:
-        if type == move["type"]:
+        if type.lower() == (move["type"]).lower():
             finalMod = finalMod*1.5
     
     if item:
@@ -64,18 +64,13 @@ def modifierSolve(userName, targetName, usedMove, item, ability, oppDictionary, 
         elif item == "Choice Band" and move['category'] == "Physical":
             finalMod = finalMod*1.5
         elif item == "Choice Specs" and move['category'] == "Special":
-            finalMod = finalMod*1.5
+            finalMod = finalMod*1.5  
 
-    
-##  MAKE A TYPE EFFECTIVENESS CALCULATOR USING A DICTIONARY FOR EACH TYPE
-##  SHOWDOWN DOES NOT TELL IF SOMETHING IS 0.25/4X EFFECTIVE
-
-    
-
+    return finalMod
 
 #NEED TO SOLVE MODIFIER CALCULATION TO NOT BE HARDCODED
 #ALSO IF NO SETS ARE RETURNED AFTER SOLVE SET THEN DON'T REMOVE ALL "POSSIBLESETS". THIS COULD BE THE CASE FOR SOMETHING LIKE ASSAULT VEST ITEM
-def solveDefSet(playerDictionary, pokeName, usedMove, percentageTaken, userAtk):
+def solveDefSet(playerDictionary, pokeName, usedMove, percentageTaken, userAtk, trueMod):
     
     if usedMove in moves:
         move = moves[usedMove]
@@ -92,8 +87,8 @@ def solveDefSet(playerDictionary, pokeName, usedMove, percentageTaken, userAtk):
             defensiveStat = calculateStat(base=stats['def'], ev=int(possible[1][2]), iv=31, level=100, statName="def", natureName=possible[0])
         elif move['category'] == "Special":
             defensiveStat = calculateStat(base=stats['spd'], ev=int(possible[1][4]), iv=31, level=100, statName="spd", natureName=possible[0])
-        
-        low, high = calcPossibleByPercentage(100, userAtk, move['power'], hp, defensiveStat, modifiers=1.5)
+
+        low, high = calcPossibleByPercentage(100, userAtk, move['power'], hp, defensiveStat, trueMod)
         if low <= percentageTaken <= high:
             possibleSet.append(possible)
 
@@ -219,7 +214,6 @@ def bigReplay(fileName="singlesBattle.json", ):
         turnList = battleTurns.split("|turn|")
 
     #Go through and find Health Updates every turn
-    print(turnList)
     for turn in turnList:
         splitTurns = turn.split("\n")
         for sepTurn in splitTurns:
@@ -286,7 +280,9 @@ def bigReplay(fileName="singlesBattle.json", ):
                         elif usedMove['category'] == "Special":
                             userAttack = calculateStat(userDictionary[poke2Name]["baseStats"][3], userDictionary[poke2Name]["evs"][3], iv=31, level=100, statName="spa", natureName=userDictionary[poke2Name]["nature"])
                         #So that you don't have to pass a static attack stat make sure to calc the attack sttat using the function with the attacking mon
-                        oppDictionary = solveDefSet(oppDictionary, poke1Name, poke2Move, perTaken, userAttack)
+                        modifier = modifierSolve(poke2Name, poke1Name, poke2Move, userDictionary[poke2Name]["item"], userDictionary[poke2Name]["ability"], oppDictionary, userDictionary)
+                        print(modifier)
+                        oppDictionary = solveDefSet(oppDictionary, poke1Name, poke2Move, perTaken, userAttack, modifier)
                     elif "p2a" in sepTurn:
                         userDictionary = damageUpdate("p2a:", userDictionary, poke2Name, sepTurn)
             elif "-boost" in sepTurn:
