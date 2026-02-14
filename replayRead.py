@@ -34,7 +34,6 @@ def modifierSolve(userName, targetName, usedMove, item, ability, targetDictionar
     finalMod = 1
     if usedMove in moves:
         move = moves[usedMove]
-        print(move)
     
     #Effectiveness Calculator
     tempTypes = targetDictionary[targetName]["activeType"]
@@ -279,9 +278,7 @@ def bigReplay(fileName="singlesBattle.json", ):
                             userAttack = calculateStat(userDictionary[poke2Name]["baseStats"][1], userDictionary[poke2Name]["evs"][1], iv=31, level=100, statName="atk", natureName=userDictionary[poke2Name]["nature"])
                         elif usedMove['category'] == "Special":
                             userAttack = calculateStat(userDictionary[poke2Name]["baseStats"][3], userDictionary[poke2Name]["evs"][3], iv=31, level=100, statName="spa", natureName=userDictionary[poke2Name]["nature"])
-                        #So that you don't have to pass a static attack stat make sure to calc the attack sttat using the function with the attacking mon
                         modifier = modifierSolve(poke2Name, poke1Name, poke2Move, userDictionary[poke2Name]["item"], userDictionary[poke2Name]["ability"], oppDictionary, userDictionary)
-                        print(modifier)
                         oppDictionary = solveDefSet(oppDictionary, poke1Name, poke2Move, perTaken, userAttack, modifier)
                     elif "p2a" in sepTurn:
                         userDictionary = damageUpdate("p2a:", userDictionary, poke2Name, sepTurn)
@@ -290,19 +287,23 @@ def bigReplay(fileName="singlesBattle.json", ):
                     statIndex = sepTurn.index(poke1Name)
                     statEndex = sepTurn.index("|")
                     stat = (sepTurn[statEndex:]).split("|")
+                    for z in range(0, 3):
+                        stat.pop(0)
+                    print(stat)
                     #I need to find out how they label all boosts since they are lower case
                     tempBoost = oppDictionary[poke1Name]["boosts"]
                     if stat[0] == "atk":
-                        tempBoost[0] == tempBoost[0]+stat[1]
+                        tempBoost[0] = tempBoost[0]+int(stat[1])
                     elif stat[0] == "def":
-                        tempBoost[1] == tempBoost[1]+stat[1]
+                        tempBoost[1] = tempBoost[1]+int(stat[1])
                     elif stat[0] == "spa":
-                        tempBoost[2] == tempBoost[2]+stat[1]
+                        tempBoost[2] = tempBoost[2]+int(stat[1])
                     elif stat[0] == "spd":
-                        tempBoost[3] == tempBoost[3]+stat[1]
+                        tempBoost[3] = tempBoost[3]+int(stat[1])
                     elif stat[0] == "spe":
-                        tempBoost[4] == tempBoost[4]+stat[1]
+                        tempBoost[4] = tempBoost[4]+int(stat[1])
                     oppDictionary[poke1Name]["boosts"] == tempBoost
+                    print(oppDictionary[poke1Name])
                     #make sure you do math, because the boosts probably only show the additive/negative instead of total
                 else:
                     statIndex = sepTurn.index(poke2Name)
@@ -315,7 +316,16 @@ def bigReplay(fileName="singlesBattle.json", ):
                 pass
             elif "|switch|" in sepTurn:
                 #keep track of active pokemon on field to determine "positioning" stats later for heuristic
-                pass
+                if "p1a" in sepTurn:
+                    poke1Index = sepTurn.index("p1a:")
+                    poke1Endex = sepTurn.index("|", poke1Index+1)
+                    poke1Name = (sepTurn[poke1Index+4:poke1Endex]).strip()
+                    print(f"Active Pokemon are now {poke1Name} and {poke2Name}")
+                elif "p2a" in sepTurn:
+                    poke2Index = sepTurn.index("p2a:")
+                    poke2Endex = sepTurn.index("|", poke2Index+1)
+                    poke2Name = (sepTurn[poke2Index+4:poke2Endex]).strip()
+                    print(f"Active pokemon are now {poke1Name} and {poke2Name}")
 
 bigReplay()
 

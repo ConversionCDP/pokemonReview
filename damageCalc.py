@@ -22,7 +22,7 @@ def calcPossibleByDamage(level, power, attack, damageDealt, modifiers=1.0):
     return possibleDefense
 
 #First step to calc possible HP and DEF stats using percentage of damage dealt
-def calcPossibleByPercentage(level, attack, power, HP, DEF, modifiers=1.0):
+def calcPossibleByPercentage(level, attack, power, HP, DEF, modifiers):
     rolls = []
     
     levelFactor = (2*level // 5) + 2
