@@ -3,6 +3,10 @@ from teamImport import teamCreation
 from teamString import string
 from damageCalc import loadPokedex, loadSmogon, loadMoves, calculateStat, calcPossibleByPercentage
 
+#IF I MAKE A FUNCTION TO PULL THE POKEMON NAME FROM THE LINE AND HAVE IT RETURN IF IT IS P1 OR P2 THEN I CAN MAKE ALL OF THE "BIG REPLAY" FUNCTION SEPARATE FUNCTION CALLS THAT IS MUCH SMOOTHER
+#MIGHT BE WORTH REWRITING ONCE THIS FUNCTIONS TO MAKE THE MAIN FUNCTION OTHER FUNCTION CALLS
+
+
 pokedex = loadPokedex()
 smogon = loadSmogon()
 moves = loadMoves()
@@ -22,12 +26,8 @@ def damageUpdate(player, playerDictionary, pokeName, sepTurn):
     healthStart = sepTurn.index("|", healthIndex)
     healthEnd = sepTurn.index("/", healthStart)
     newHealth = int(sepTurn[healthStart+1:healthEnd])
-    if "p1a" in player:
-        playerDictionary[pokeName]["health"] = newHealth  
-    else:
-        for number in playerDictionary:
-            if number['pokemon'] == pokeName:
-                playerDictionary[number]['health'] == newHealth
+
+    playerDictionary[pokeName]["health"] = newHealth  
     return playerDictionary
 
 def modifierSolve(userName, targetName, usedMove, item, ability, targetDictionary, moveUserDictionary):
@@ -53,8 +53,11 @@ def modifierSolve(userName, targetName, usedMove, item, ability, targetDictionar
 
     #STAB Calculator
     userTypes = moveUserDictionary[userName]["activeType"]
+    activeTera = moveUserDictionary[userName]["teraActive"]
     for type in userTypes:
-        if type.lower() == (move["type"]).lower():
+        if type.lower() == (move["type"]).lower() and activeTera == "Yes":
+            finalMod = finalMod*2.0
+        elif type.lower() == (move["type"]).lower():
             finalMod = finalMod*1.5
     
     if item:
@@ -154,8 +157,10 @@ def bigReplay(fileName="singlesBattle.json", ):
                                         "ability": [],
                                         "item": "",
                                         "tera": "",
+                                        "teraActive": "No",
                                         "boosts": [0, 0, 0, 0, 0],
-                                        "activeType": "",
+                                        "activeType": [],
+                                        "status": [],
                                         "baseStats": newStatList}
     #Importing userDictionary to be used from teamImport
     tempUserDictionary = teamCreation(string)
@@ -174,8 +179,10 @@ def bigReplay(fileName="singlesBattle.json", ):
                                            "item": tempUserDictionary[poke]["item"],
                                            "boosts": [0, 0, 0, 0, 0],
                                            "tera": tempUserDictionary[poke]["tera"],
+                                           "teraActive": "No",
                                            "nature": tempUserDictionary[poke]["nature"],
                                            "activeType": [],
+                                           "status": [],
                                            "baseStats": newStatList}    
     
     #oppTeam sets and active type set
@@ -217,7 +224,13 @@ def bigReplay(fileName="singlesBattle.json", ):
         splitTurns = turn.split("\n")
         for sepTurn in splitTurns:
             print(sepTurn)
+            '''for name in oppDictionary:
+                print(f"oppDict: {name}")
+            for name in userDictionary:
+                print(f"UserDict: {name}")'''
             if "move" in sepTurn:
+                p1Count = 0
+                p2Count = 0
                 p1Count = sepTurn.count("p1a")
                 p2Count = sepTurn.count("p2a")
                 if p1Count == 1 and p2Count == 1:
@@ -265,7 +278,19 @@ def bigReplay(fileName="singlesBattle.json", ):
                         preHealth = oppDictionary[poke1Name]["health"]
                         oppDictionary = damageUpdate("p1a:", oppDictionary, poke1Name, sepTurn)
                     elif "p2a" in sepTurn:
-                        oppDictionary = damageUpdate("p2a:", userDictionary, poke2Name, sepTurn)
+                        userDictionary = damageUpdate("p2a:", userDictionary, poke2Name, sepTurn)
+                elif "fnt" in sepTurn:
+                    if "p1a" in sepTurn:
+                        poke1Index = sepTurn.index("p1a:")
+                        poke1Endex = sepTurn.index("|", poke1Index)
+                        poke1Name = sepTurn[poke1Index+4:poke1Endex].strip()
+                        oppDictionary[poke1Name]["status"] = ["fnt"]
+                        oppDictionary[poke1Name]["health"] = 0
+                    elif "p2a" in sepTurn:
+                        poke2Index = sepTurn.index("p2a:")
+                        poke2Endex = sepTurn.index("|", poke2Index)
+                        poke2Name = sepTurn[poke2Index+4:poke2Endex].strip()
+                        userDictionary[poke2Name]["status"] = ["fnt"]
                 else:
                     if "p1a" in sepTurn:
                         preHealth = oppDictionary[poke1Name]["health"]
@@ -303,7 +328,6 @@ def bigReplay(fileName="singlesBattle.json", ):
                     elif stat[0] == "spe":
                         tempBoost[4] = tempBoost[4]+int(stat[1])
                     oppDictionary[poke1Name]["boosts"] == tempBoost
-                    print(oppDictionary[poke1Name])
                     #make sure you do math, because the boosts probably only show the additive/negative instead of total
                 else:
                     statIndex = sepTurn.index(poke2Name)
@@ -313,7 +337,15 @@ def bigReplay(fileName="singlesBattle.json", ):
                     tempBoost = userDictionary
             elif "-terastallize" in sepTurn:
                 #use this to keep track of a pokemon's current type, might also consider moves like conversion and burn up
-                pass
+                if "p1a" in sepTurn:
+                    poke1Index = sepTurn.index("p1a:")
+                    poke1Endex = sepTurn.index("|", poke1Index+1)
+                    poke1Name = (sepTurn[poke1Index+4:poke1Endex]).strip()
+                    newTeraType = [(sepTurn[poke1Endex+1:].strip()).lower()]
+                    print(newTeraType)
+                    oppDictionary[poke1Name]["activeType"] = newTeraType
+                    oppDictionary[poke1Name]["tera"] = str(newTeraType[0])
+                    oppDictionary[poke1Name]["teraActive"] = "Yes"
             elif "|switch|" in sepTurn:
                 #keep track of active pokemon on field to determine "positioning" stats later for heuristic
                 if "p1a" in sepTurn:
@@ -326,7 +358,25 @@ def bigReplay(fileName="singlesBattle.json", ):
                     poke2Endex = sepTurn.index("|", poke2Index+1)
                     poke2Name = (sepTurn[poke2Index+4:poke2Endex]).strip()
                     print(f"Active pokemon are now {poke1Name} and {poke2Name}")
-
+            elif "|-status|" in sepTurn:
+                if "p1a" in sepTurn:
+                    poke1Index = sepTurn.index("p1a:")
+                    poke1Endex = sepTurn.index("|", poke1Index+1)
+                    poke1Name = (sepTurn[poke1Index+4:poke1Endex]).strip()
+                    status = sepTurn[poke1Endex+1:].strip()
+                    activeStatus = oppDictionary[poke1Name]["status"]
+                    activeStatus.append(status)
+                    oppDictionary[poke1Name]["status"] = activeStatus
+                    print(oppDictionary[poke1Name]["status"])
+                elif "p2a" in sepTurn:
+                    poke2Index = sepTurn.index("p2a:")
+                    poke2Endex = sepTurn.index("|", poke2Index+1)
+                    poke2Name = (sepTurn[poke2Index+4:poke2Endex]).strip()
+                    status = sepTurn[poke2Endex+1:].strip()
+                    activeStatus = userDictionary[poke2Name]["status"]
+                    activeStatus.append(status)
+                    userDictionary[poke2Name]["status"] = activeStatus
+                    print(userDictionary[poke2Name]["status"])
 bigReplay()
 
 
